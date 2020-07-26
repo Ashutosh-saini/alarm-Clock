@@ -1,47 +1,36 @@
-<!doctype html>
-<html lang="en">
+console.log('Alarm clock');
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+let button = document.getElementById('btn')
+button.addEventListener('click',setAlarm);
+var audio = new Audio('https://actions.google.com/sounds/v1/alarms/phone_alerts_and_rings.ogg')
 
-    <title>Alarm Clock</title>
-</head>
+function ringBell() {
+    audio.play();
+}
 
-<body>
-    <div class="card text-center ">
-        <div class="card-header text-white bg-primary mb-3">
-            <h1>Alarm Clock</h1>
-            <h3>Current time<span>
-                    <h4 id="time"></h4>
-                </span></h3>
+function setAlarm() {
+    const alarm = document.getElementById('setTime');
+    alarmDate = new Date(alarm.value);
+    now = new Date();
 
-        </div>
+    let timeToAlarm = alarmDate - now;
+    console.log(timeToAlarm);
+    if(timeToAlarm>=0){
+        setTimeout(() => {
+            ringBell();
+        }, timeToAlarm);
+    }
+    
 
-        <div class="card-body text-white bg-danger mb-3">
-            <h5 class="card-title">Set Alarm</h5>
-            <input type="datetime-local" class="card-text" id="setTime">
-            <button class="btn btn-primary" id="btn">Set</button>
-        </div>
-    </div>
+}
 
-    <script src="js/52_exercise6.js"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-</body>
+let input = document.getElementById('setTime').value;
+let alarm_time = new Date();
 
-</html>
+function displayTime() {
+    // console.log(time);
+    let dateWithSecond = new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute:'2-digit',second:'2-digit' });
+    document.getElementById('time').innerHTML = dateWithSecond;
+}
+setInterval(displayTime, 1000);
